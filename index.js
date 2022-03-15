@@ -44,7 +44,14 @@ async function run() {
       console.log("getting product", getProduct);
       res.send(getProduct);
     });
-
+    // delete course
+    app.delete("/online-course/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await Courses.deleteOne(query);
+      console.log("deleting product", result);
+      res.json(result);
+    });
     app.post("/confirmOrder", async (req, res) => {
       const order = req.body;
       const confirmOrder = await CourseOrder.insertOne(order);
